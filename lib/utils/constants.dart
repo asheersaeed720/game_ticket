@@ -10,11 +10,13 @@ const Color textFieldColor = Color.fromARGB(255, 238, 236, 237);
 TextStyle kTitleStyle = const TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
+  fontFamily: 'Poppins',
   fontSize: 18.0,
 );
 TextStyle kBodyStyle = const TextStyle(
   color: Colors.white,
-  fontSize: 15.0,
+  fontSize: 16.0,
+  fontFamily: 'Poppins',
   fontWeight: FontWeight.bold,
 );
 
