@@ -5,10 +5,10 @@ import 'package:game_ticket/utils/constants.dart';
 
 class BubbleIndicatorPainter extends CustomPainter {
   BubbleIndicatorPainter({
-    this.dxTarget = 112.0,
-    this.dxEntry = 26.0,
-    this.radius = 21.0,
-    this.dy = 25.0,
+    this.dxTarget = 114.0,
+    this.dxEntry = 24.0,
+    this.radius = 16.0,
+    this.dy = 21.0,
     this.pageController,
   }) : super(repaint: pageController) {
     painter = Paint()

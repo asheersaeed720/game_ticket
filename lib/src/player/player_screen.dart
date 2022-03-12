@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:game_ticket/src/ticket/create_ticket_screen.dart';
 import 'package:game_ticket/utils/constants.dart';
+import 'package:get/get.dart';
 
 class PlayerScreen extends StatelessWidget {
   static const String routeName = '/player';
@@ -232,9 +234,16 @@ class PlayerScreen extends StatelessWidget {
             border: Border.all(width: 2.0, color: primaryColor),
             borderRadius: BorderRadius.circular(32.0),
           ),
-          child: const Icon(
-            Icons.arrow_back_ios_rounded,
-            color: primaryColor,
+          child: InkWell(
+            onTap: () => Get.to(
+              () => const CreateTicketScreen(),
+              transition: Transition.leftToRight,
+              duration: const Duration(milliseconds: 400),
+            ),
+            child: const Icon(
+              Icons.arrow_back_ios_rounded,
+              color: primaryColor,
+            ),
           ),
         ),
         ClipRRect(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:game_ticket/src/game_detail_screen.dart';
+import 'package:game_ticket/src/player/player_screen.dart';
 import 'package:game_ticket/src/ticket/select_game_screen.dart';
 import 'package:game_ticket/utils/constants.dart';
 import 'package:get/get.dart';
@@ -79,7 +81,11 @@ class CreateTicketScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(32.0),
                         ),
                         child: InkWell(
-                          onTap: () => Get.toNamed(SelectGameScreen.routeName),
+                          onTap: () => Get.to(
+                            () => const SelectGameScreen(),
+                            transition: Transition.rightToLeft,
+                            duration: const Duration(milliseconds: 400),
+                          ),
                           child: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
                         ),
                       ),
@@ -92,7 +98,14 @@ class CreateTicketScreen extends StatelessWidget {
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(32.0),
                         ),
-                        child: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
+                        child: InkWell(
+                          onTap: () => Get.to(
+                            () => PlayerScreen(),
+                            transition: Transition.rightToLeft,
+                            duration: const Duration(milliseconds: 400),
+                          ),
+                          child: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
+                        ),
                       ),
                       const SizedBox(height: 10.0),
                       Text('Details', style: kBodyStyle),
@@ -103,7 +116,14 @@ class CreateTicketScreen extends StatelessWidget {
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(32.0),
                         ),
-                        child: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
+                        child: InkWell(
+                          onTap: () => Get.to(
+                            () => const GameDetailScreen(),
+                            transition: Transition.rightToLeft,
+                            duration: const Duration(milliseconds: 400),
+                          ),
+                          child: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
+                        ),
                       ),
                     ],
                   ),

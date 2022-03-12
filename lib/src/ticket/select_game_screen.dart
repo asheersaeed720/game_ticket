@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:game_ticket/src/ticket/create_ticket_screen.dart';
 import 'package:game_ticket/utils/constants.dart';
+import 'package:get/get.dart';
 
 class SelectGameScreen extends StatelessWidget {
   static const String routeName = '/select-game';
 
   const SelectGameScreen({Key? key}) : super(key: key);
+
+  void navigateToBack() {
+    Get.to(
+      () => const CreateTicketScreen(),
+      transition: Transition.leftToRight,
+      duration: const Duration(milliseconds: 400),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +83,12 @@ class SelectGameScreen extends StatelessWidget {
             border: Border.all(width: 2.0, color: primaryColor),
             borderRadius: BorderRadius.circular(32.0),
           ),
-          child: const Icon(
-            Icons.arrow_back_ios_rounded,
-            color: primaryColor,
+          child: InkWell(
+            onTap: () => navigateToBack(),
+            child: const Icon(
+              Icons.arrow_back_ios_rounded,
+              color: primaryColor,
+            ),
           ),
         ),
         const SizedBox(width: 20.0),
@@ -125,10 +138,13 @@ class SelectGameScreen extends StatelessWidget {
                         color: primaryColor,
                         borderRadius: BorderRadius.circular(100.0),
                       ),
-                      child: const Icon(
-                        Icons.sports_cricket,
-                        size: 52.0,
-                        color: Colors.white,
+                      child: InkWell(
+                        onTap: () => navigateToBack(),
+                        child: const Icon(
+                          Icons.sports_cricket,
+                          size: 52.0,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Positioned(
@@ -159,10 +175,13 @@ class SelectGameScreen extends StatelessWidget {
                         color: primaryColor,
                         borderRadius: BorderRadius.circular(100.0),
                       ),
-                      child: const Icon(
-                        Icons.sports_cricket,
-                        size: 52.0,
-                        color: Colors.white,
+                      child: InkWell(
+                        onTap: () => navigateToBack(),
+                        child: const Icon(
+                          Icons.sports_cricket,
+                          size: 52.0,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Positioned(
@@ -199,10 +218,13 @@ class SelectGameScreen extends StatelessWidget {
                         color: primaryColor,
                         borderRadius: BorderRadius.circular(100.0),
                       ),
-                      child: const Icon(
-                        Icons.sports_cricket,
-                        size: 52.0,
-                        color: Colors.white,
+                      child: InkWell(
+                        onTap: () => navigateToBack(),
+                        child: const Icon(
+                          Icons.sports_cricket,
+                          size: 52.0,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Positioned(
@@ -233,10 +255,13 @@ class SelectGameScreen extends StatelessWidget {
                         color: primaryColor,
                         borderRadius: BorderRadius.circular(100.0),
                       ),
-                      child: const Icon(
-                        Icons.sports_cricket,
-                        size: 52.0,
-                        color: Colors.white,
+                      child: InkWell(
+                        onTap: () => navigateToBack(),
+                        child: const Icon(
+                          Icons.sports_cricket,
+                          size: 52.0,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Positioned(

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:game_ticket/src/counter.dart';
+import 'package:game_ticket/src/ticket/create_ticket_screen.dart';
 import 'package:game_ticket/utils/bubble_indicator.dart';
 import 'package:game_ticket/utils/constants.dart';
+import 'package:get/get.dart';
 
 class GameDetailScreen extends StatefulWidget {
   static const String routeName = '/game-details';
@@ -76,9 +79,20 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                       Text('Game type', style: kBodyStyle),
                       const SizedBox(height: 16.0),
                       const SizedBox(
-                        height: 200.0,
+                        height: 60.0,
                         child: TabScreenBuilder(),
                       ),
+                      Text('Game Rounds', style: kBodyStyle),
+                      const SizedBox(height: 16.0),
+                      const StepperTouch(),
+                      const SizedBox(height: 16.0),
+                      Text('How you', style: kBodyStyle),
+                      const SizedBox(height: 16.0),
+                      const StepperTouch(),
+                      const SizedBox(height: 16.0),
+                      Text('Who is Begining', style: kBodyStyle),
+                      const SizedBox(height: 16.0),
+                      _buildPlayerView(),
                     ],
                   ),
                 )
@@ -99,9 +113,16 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
             border: Border.all(width: 2.0, color: primaryColor),
             borderRadius: BorderRadius.circular(32.0),
           ),
-          child: const Icon(
-            Icons.arrow_back_ios_rounded,
-            color: primaryColor,
+          child: InkWell(
+            onTap: () => Get.to(
+              () => const CreateTicketScreen(),
+              transition: Transition.leftToRight,
+              duration: const Duration(milliseconds: 400),
+            ),
+            child: const Icon(
+              Icons.arrow_back_ios_rounded,
+              color: primaryColor,
+            ),
           ),
         ),
         const SizedBox(width: 20.0),
@@ -119,6 +140,59 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
               TextSpan(text: ' Ticket!'),
             ],
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPlayerView() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(50.0),
+              child: Image.asset(
+                'assets/images/person1.png',
+                width: 82.0,
+                height: 82.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            const Text('Helena', style: TextStyle(color: Colors.white)),
+          ],
+        ),
+        Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(50.0),
+              child: Image.asset(
+                'assets/images/person2.png',
+                width: 82.0,
+                height: 82.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            const Text('Selena', style: TextStyle(color: Colors.white)),
+          ],
+        ),
+        Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(50.0),
+              child: Image.asset(
+                'assets/images/person3.png',
+                width: 82.0,
+                height: 82.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            const Text('Helena', style: TextStyle(color: Colors.white)),
+          ],
         ),
       ],
     );
@@ -179,7 +253,7 @@ class _TabScreenBuilderState extends State<TabScreenBuilder> with SingleTickerPr
             children: <Widget>[
               _buildMenuBar(context),
               Expanded(
-                flex: 2,
+                flex: 4,
                 child: PageView(
                   controller: _pageController,
                   physics: const ClampingScrollPhysics(),
@@ -219,7 +293,7 @@ class _TabScreenBuilderState extends State<TabScreenBuilder> with SingleTickerPr
   Widget _buildMenuBar(BuildContext context) {
     return Container(
       width: 280.0,
-      height: 50.0,
+      height: 42.0,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(30.0)),
@@ -237,6 +311,7 @@ class _TabScreenBuilderState extends State<TabScreenBuilder> with SingleTickerPr
                   style: TextStyle(
                     color: left,
                     fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
                     fontFamily: 'Poppins',
                   ),
                 ),
@@ -250,6 +325,7 @@ class _TabScreenBuilderState extends State<TabScreenBuilder> with SingleTickerPr
                   style: TextStyle(
                     color: right,
                     fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
                     fontFamily: 'Poppins',
                   ),
                 ),
