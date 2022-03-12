@@ -1,12 +1,23 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:game_ticket/src/ticket/create_ticket_screen.dart';
 import 'package:game_ticket/utils/constants.dart';
 import 'package:get/get.dart';
 
-class PlayerScreen extends StatelessWidget {
+class PlayerScreen extends StatefulWidget {
   static const String routeName = '/player';
 
-  PlayerScreen({Key? key}) : super(key: key);
+  const PlayerScreen({Key? key}) : super(key: key);
+
+  @override
+  State<PlayerScreen> createState() => _PlayerScreenState();
+}
+
+class _PlayerScreenState extends State<PlayerScreen> {
+  // final String _color = 'Drag me';
+
+  bool _isDropped1 = false;
+  bool _isDropped2 = false;
 
   final List<Widget> _playersList = [
     Wrap(
@@ -26,35 +37,97 @@ class PlayerScreen extends StatelessWidget {
         ),
       ],
     ),
-    Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(50.0),
-          child: Image.asset(
-            'assets/images/person1.png',
+    Draggable<String>(
+      data: 'Drag me',
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(50.0),
+            child: Image.asset(
+              'assets/images/person1.png',
+              width: 96.0,
+              height: 96.0,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 8.0),
+          const Text('Helena', style: TextStyle(color: Colors.white)),
+        ],
+      ),
+      feedback: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(50.0),
+            child: Image.asset(
+              'assets/images/person1.png',
+              width: 96.0,
+              height: 96.0,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ],
+      ),
+      childWhenDragging: Wrap(
+        children: [
+          Container(
             width: 96.0,
             height: 96.0,
-            fit: BoxFit.cover,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1.0,
+                color: Colors.white,
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            ),
           ),
-        ),
-        const SizedBox(height: 8.0),
-        const Text('Helena', style: TextStyle(color: Colors.white)),
-      ],
+        ],
+      ),
     ),
-    Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(50.0),
-          child: Image.asset(
-            'assets/images/person2.png',
+    Draggable<String>(
+      data: 'Drag me 2',
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(50.0),
+            child: Image.asset(
+              'assets/images/person2.png',
+              width: 96.0,
+              height: 96.0,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 8.0),
+          const Text('Serena', style: TextStyle(color: Colors.white)),
+        ],
+      ),
+      feedback: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(50.0),
+            child: Image.asset(
+              'assets/images/person2.png',
+              width: 96.0,
+              height: 96.0,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ],
+      ),
+      childWhenDragging: Wrap(
+        children: [
+          Container(
             width: 96.0,
             height: 96.0,
-            fit: BoxFit.cover,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1.0,
+                color: Colors.white,
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            ),
           ),
-        ),
-        const SizedBox(height: 8.0),
-        const Text('Serena', style: TextStyle(color: Colors.white)),
-      ],
+        ],
+      ),
     ),
     Column(
       children: [
@@ -143,16 +216,69 @@ class PlayerScreen extends StatelessWidget {
                         children: [
                           Column(
                             children: [
-                              Container(
-                                width: 96.0,
-                                height: 96.0,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1.0,
+                              // Container(
+                              //   width: 96.0,
+                              //   height: 96.0,
+                              //   decoration: BoxDecoration(
+                              //     border: Border.all(
+                              //       width: 1.0,
+                              //       color: Colors.white,
+                              //     ),
+                              //     borderRadius: BorderRadius.circular(50.0),
+                              //   ),
+                              // ),
+                              DragTarget<String>(
+                                builder: (
+                                  BuildContext context,
+                                  List<dynamic> accepted,
+                                  List<dynamic> rejected,
+                                ) {
+                                  return DottedBorder(
+                                    borderType: BorderType.RRect,
+                                    radius: const Radius.circular(50),
                                     color: Colors.white,
-                                  ),
-                                  borderRadius: BorderRadius.circular(50.0),
-                                ),
+                                    strokeWidth: 2,
+                                    dashPattern: const [8],
+                                    child: _isDropped1
+                                        ? ClipRRect(
+                                            borderRadius: BorderRadius.circular(50.0),
+                                            child: Image.asset(
+                                              'assets/images/person1.png',
+                                              width: 96.0,
+                                              height: 96.0,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          )
+                                        : ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.all(Radius.circular(12)),
+                                            child: Container(
+                                              height: 96,
+                                              width: 96,
+                                              color: _isDropped1 ? Colors.redAccent : null,
+                                              child: const Center(
+                                                child: Text(
+                                                  '',
+                                                  textScaleFactor: 2,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                  );
+                                },
+                                onAccept: (data) {
+                                  debugPrint('hi $data');
+                                  setState(() {
+                                    // showSnackBarGlobal(context, 'Dropped successfully!');
+                                    _isDropped1 = true;
+                                  });
+                                },
+                                onWillAccept: (data) {
+                                  return data == 'Drag me';
+                                },
+                                onLeave: (data) {
+                                  // showSnackBarGlobal(context, 'Missed');
+                                },
                               ),
                               const SizedBox(height: 16.0),
                               Text('Player 1', style: kBodyStyle)
@@ -168,16 +294,58 @@ class PlayerScreen extends StatelessWidget {
                           ),
                           Column(
                             children: [
-                              Container(
-                                width: 98.0,
-                                height: 98.0,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1.0,
+                              DragTarget<String>(
+                                builder: (
+                                  BuildContext context,
+                                  List<dynamic> accepted,
+                                  List<dynamic> rejected,
+                                ) {
+                                  return DottedBorder(
+                                    borderType: BorderType.RRect,
+                                    radius: const Radius.circular(50),
                                     color: Colors.white,
-                                  ),
-                                  borderRadius: BorderRadius.circular(50.0),
-                                ),
+                                    strokeWidth: 2,
+                                    dashPattern: const [8],
+                                    child: _isDropped2
+                                        ? ClipRRect(
+                                            borderRadius: BorderRadius.circular(50.0),
+                                            child: Image.asset(
+                                              'assets/images/person2.png',
+                                              width: 96.0,
+                                              height: 96.0,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          )
+                                        : ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.all(Radius.circular(12)),
+                                            child: Container(
+                                              height: 96,
+                                              width: 96,
+                                              color: _isDropped2 ? Colors.redAccent : null,
+                                              child: const Center(
+                                                child: Text(
+                                                  '',
+                                                  textScaleFactor: 2,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                  );
+                                },
+                                onAccept: (data) {
+                                  debugPrint('hi $data');
+                                  setState(() {
+                                    // showSnackBarGlobal(context, 'Dropped successfully!');
+                                    _isDropped2 = true;
+                                  });
+                                },
+                                onWillAccept: (data) {
+                                  return data == 'Drag me 2';
+                                },
+                                onLeave: (data) {
+                                  // showSnackBarGlobal(context, 'Missed');
+                                },
                               ),
                               const SizedBox(height: 16.0),
                               Text('Player 2', style: kBodyStyle)

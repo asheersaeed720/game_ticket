@@ -1,3 +1,4 @@
+import 'package:game_ticket/src/drag/test_drag.dart';
 import 'package:game_ticket/src/game_detail_screen.dart';
 import 'package:game_ticket/src/player/player_screen.dart';
 import 'package:game_ticket/src/ticket/create_ticket_screen.dart';
@@ -20,5 +21,9 @@ final List<GetPage<dynamic>> routes = [
   GetPage(
     name: GameDetailScreen.routeName,
     page: () => const GameDetailScreen(),
+  ),
+  GetPage(
+    name: TestDraggableWidget.routeName,
+    page: () => const TestDraggableWidget(),
   ),
 ];
