@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:game_ticket/src/ticket/create_ticket_screen.dart';
+import 'package:game_ticket/src/game/views/game_info_screen.dart';
+import 'package:game_ticket/src/main/main_screen.dart';
 import 'package:game_ticket/utils/constants.dart';
 import 'package:get/get.dart';
 
@@ -10,8 +11,16 @@ class SelectGameScreen extends StatelessWidget {
 
   void navigateToBack() {
     Get.to(
-      () => const CreateTicketScreen(),
+      () => const MainScreen(),
       transition: Transition.leftToRight,
+      duration: const Duration(milliseconds: 400),
+    );
+  }
+
+  void navigateToGameInfo(String gameName, dynamic iconPath, String desc) {
+    Get.to(
+      () => GameInfoScreen(gameName, iconPath, desc),
+      transition: Transition.rightToLeft,
       duration: const Duration(milliseconds: 400),
     );
   }
@@ -132,30 +141,34 @@ class SelectGameScreen extends StatelessWidget {
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.all(30.0),
-                      decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(100.0),
-                      ),
-                      child: InkWell(
-                        onTap: () => navigateToBack(),
-                        child: const Icon(
-                          Icons.sports_cricket,
-                          size: 52.0,
-                          color: Colors.white,
+                    InkWell(
+                      onTap: () => navigateToBack(),
+                      child: Container(
+                        padding: const EdgeInsets.all(30.0),
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(100.0),
+                        ),
+                        child: Image.asset(
+                          'assets/icons/cricket.png',
+                          width: 56.0,
+                          height: 56.0,
                         ),
                       ),
                     ),
                     Positioned(
                       right: -6,
-                      child: Container(
-                        padding: const EdgeInsets.all(6.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(32.0),
+                      child: InkWell(
+                        onTap: () => navigateToGameInfo(
+                            'Cricket', 'assets/icons/cricket.png', 'Cricket The classic'),
+                        child: Container(
+                          padding: const EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(32.0),
+                          ),
+                          child: const Icon(Icons.info, color: Colors.black87),
                         ),
-                        child: const Icon(Icons.info, color: Colors.black87),
                       ),
                     ),
                   ],
@@ -169,16 +182,16 @@ class SelectGameScreen extends StatelessWidget {
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.all(30.0),
-                      decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(100.0),
-                      ),
-                      child: InkWell(
-                        onTap: () => navigateToBack(),
+                    InkWell(
+                      onTap: () => navigateToBack(),
+                      child: Container(
+                        padding: const EdgeInsets.all(30.0),
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(100.0),
+                        ),
                         child: const Icon(
-                          Icons.sports_cricket,
+                          Icons.timelapse_rounded,
                           size: 52.0,
                           color: Colors.white,
                         ),
@@ -186,19 +199,23 @@ class SelectGameScreen extends StatelessWidget {
                     ),
                     Positioned(
                       right: -6,
-                      child: Container(
-                        padding: const EdgeInsets.all(6.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(32.0),
+                      child: InkWell(
+                        onTap: () => navigateToGameInfo(
+                            'Around the clock', Icons.timelapse_rounded, 'Around the clock desc'),
+                        child: Container(
+                          padding: const EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(32.0),
+                          ),
+                          child: const Icon(Icons.info, color: Colors.black87),
                         ),
-                        child: const Icon(Icons.info, color: Colors.black87),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16.0),
-                Text('Cricket', style: kBodyStyle),
+                Text('Around the clock', style: kBodyStyle),
               ],
             ),
           ],
@@ -212,36 +229,40 @@ class SelectGameScreen extends StatelessWidget {
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.all(30.0),
-                      decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(100.0),
-                      ),
-                      child: InkWell(
-                        onTap: () => navigateToBack(),
-                        child: const Icon(
-                          Icons.sports_cricket,
-                          size: 52.0,
-                          color: Colors.white,
+                    InkWell(
+                      onTap: () => navigateToBack(),
+                      child: Container(
+                        padding: const EdgeInsets.all(30.0),
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(100.0),
+                        ),
+                        child: Image.asset(
+                          'assets/icons/121.png',
+                          width: 56.0,
+                          height: 56.0,
                         ),
                       ),
                     ),
                     Positioned(
                       right: -6,
-                      child: Container(
-                        padding: const EdgeInsets.all(6.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(32.0),
+                      child: InkWell(
+                        onTap: () =>
+                            navigateToGameInfo('121', 'assets/icons/121.png', '121 the desc'),
+                        child: Container(
+                          padding: const EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(32.0),
+                          ),
+                          child: const Icon(Icons.info, color: Colors.black87),
                         ),
-                        child: const Icon(Icons.info, color: Colors.black87),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16.0),
-                Text('Cricket', style: kBodyStyle),
+                Text('121', style: kBodyStyle),
               ],
             ),
             Column(
@@ -249,36 +270,40 @@ class SelectGameScreen extends StatelessWidget {
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.all(30.0),
-                      decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(100.0),
-                      ),
-                      child: InkWell(
-                        onTap: () => navigateToBack(),
-                        child: const Icon(
-                          Icons.sports_cricket,
-                          size: 52.0,
-                          color: Colors.white,
+                    InkWell(
+                      onTap: () => navigateToBack(),
+                      child: Container(
+                        padding: const EdgeInsets.all(30.0),
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(100.0),
+                        ),
+                        child: Image.asset(
+                          'assets/icons/170.png',
+                          width: 56.0,
+                          height: 56.0,
                         ),
                       ),
                     ),
                     Positioned(
                       right: -6,
-                      child: Container(
-                        padding: const EdgeInsets.all(6.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(32.0),
+                      child: InkWell(
+                        onTap: () =>
+                            navigateToGameInfo('170', 'assets/icons/170.png', '170 is desc'),
+                        child: Container(
+                          padding: const EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(32.0),
+                          ),
+                          child: const Icon(Icons.info, color: Colors.black87),
                         ),
-                        child: const Icon(Icons.info, color: Colors.black87),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16.0),
-                Text('Cricket', style: kBodyStyle),
+                Text('170', style: kBodyStyle),
               ],
             ),
           ],

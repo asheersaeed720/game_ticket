@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:game_ticket/utils/constants.dart';
 
-class StepperTouch extends StatefulWidget {
-  const StepperTouch({
+class CounterWidget extends StatefulWidget {
+  const CounterWidget({
     Key? key,
     this.initialValue,
     this.onChanged,
@@ -32,7 +32,7 @@ class StepperTouch extends StatefulWidget {
   _Stepper2State createState() => _Stepper2State();
 }
 
-class _Stepper2State extends State<StepperTouch> with SingleTickerProviderStateMixin {
+class _Stepper2State extends State<CounterWidget> with SingleTickerProviderStateMixin {
   AnimationController? _controller;
   late Animation<Offset> _animation;
   late int _value;

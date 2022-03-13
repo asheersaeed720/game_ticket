@@ -1,19 +1,19 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:game_ticket/src/ticket/create_ticket_screen.dart';
+import 'package:game_ticket/src/main/main_screen.dart';
 import 'package:game_ticket/utils/constants.dart';
 import 'package:get/get.dart';
 
-class PlayerScreen extends StatefulWidget {
-  static const String routeName = '/player';
+class AddPlayerScreen extends StatefulWidget {
+  static const String routeName = '/add-player';
 
-  const PlayerScreen({Key? key}) : super(key: key);
+  const AddPlayerScreen({Key? key}) : super(key: key);
 
   @override
-  State<PlayerScreen> createState() => _PlayerScreenState();
+  State<AddPlayerScreen> createState() => _AddPlayerScreenState();
 }
 
-class _PlayerScreenState extends State<PlayerScreen> {
+class _AddPlayerScreenState extends State<AddPlayerScreen> {
   // final String _color = 'Drag me';
 
   bool _isDropped1 = false;
@@ -380,7 +380,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           ),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.back();
+                      },
                     ),
                   ),
                 ),
@@ -404,7 +406,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
           ),
           child: InkWell(
             onTap: () => Get.to(
-              () => const CreateTicketScreen(),
+              () => const MainScreen(),
               transition: Transition.leftToRight,
               duration: const Duration(milliseconds: 400),
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:game_ticket/src/counter.dart';
-import 'package:game_ticket/src/ticket/create_ticket_screen.dart';
+import 'package:game_ticket/src/game/widgets/counter_widget.dart';
+import 'package:game_ticket/src/main/main_controller.dart';
+import 'package:game_ticket/src/main/main_screen.dart';
 import 'package:game_ticket/utils/bubble_indicator.dart';
 import 'package:game_ticket/utils/constants.dart';
 import 'package:get/get.dart';
@@ -50,8 +51,8 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                 _buildAppBarView(),
                 const SizedBox(height: 20.0),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.7,
-                  padding: const EdgeInsets.only(top: 30.0, bottom: 28.0, right: 16.0, left: 16.0),
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  padding: const EdgeInsets.only(top: 28.0, bottom: 28.0, right: 16.0, left: 16.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24.0),
                     gradient: LinearGradient(
@@ -75,24 +76,57 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 18.0),
-                      Text('Game type', style: kBodyStyle),
                       const SizedBox(height: 16.0),
+                      Text('Game type', style: kBodyStyle),
+                      const SizedBox(height: 14.0),
                       const SizedBox(
                         height: 60.0,
                         child: TabScreenBuilder(),
                       ),
                       Text('Game Rounds', style: kBodyStyle),
-                      const SizedBox(height: 16.0),
-                      const StepperTouch(),
-                      const SizedBox(height: 16.0),
+                      const SizedBox(height: 14.0),
+                      const CounterWidget(),
+                      const SizedBox(height: 14.0),
                       Text('How you', style: kBodyStyle),
-                      const SizedBox(height: 16.0),
-                      const StepperTouch(),
-                      const SizedBox(height: 16.0),
+                      const SizedBox(height: 14.0),
+                      const CounterWidget(),
+                      const SizedBox(height: 14.0),
                       Text('Who is Begining', style: kBodyStyle),
-                      const SizedBox(height: 16.0),
+                      const SizedBox(height: 14.0),
                       _buildPlayerView(),
+                      const SizedBox(height: 14.0),
+                      Image.asset('assets/images/divider.png'),
+                      const SizedBox(height: 14.0),
+                      Center(
+                        child: SizedBox(
+                          width: 128.0,
+                          height: 48.0,
+                          child: ElevatedButton(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text('Next'),
+                                SizedBox(width: 10.0),
+                                Icon(Icons.arrow_forward_rounded),
+                              ],
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Theme.of(context).primaryColor),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {
+                              Get.put(MainController()).isPlay = true;
+                              Get.put(MainController()).update();
+                              Get.back();
+                            },
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 )
@@ -115,7 +149,7 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
           ),
           child: InkWell(
             onTap: () => Get.to(
-              () => const CreateTicketScreen(),
+              () => const MainScreen(),
               transition: Transition.leftToRight,
               duration: const Duration(milliseconds: 400),
             ),
@@ -155,8 +189,8 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
               borderRadius: BorderRadius.circular(50.0),
               child: Image.asset(
                 'assets/images/person1.png',
-                width: 82.0,
-                height: 82.0,
+                width: 62.0,
+                height: 62.0,
                 fit: BoxFit.cover,
               ),
             ),
@@ -170,8 +204,8 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
               borderRadius: BorderRadius.circular(50.0),
               child: Image.asset(
                 'assets/images/person2.png',
-                width: 82.0,
-                height: 82.0,
+                width: 62.0,
+                height: 62.0,
                 fit: BoxFit.cover,
               ),
             ),
@@ -181,17 +215,23 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
         ),
         Column(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(50.0),
-              child: Image.asset(
-                'assets/images/person3.png',
-                width: 82.0,
-                height: 82.0,
-                fit: BoxFit.cover,
+            InkWell(
+              onTap: () {},
+              child: Container(
+                padding: const EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  color: primaryColor,
+                  borderRadius: BorderRadius.circular(70.0),
+                ),
+                child: Image.asset(
+                  'assets/icons/bull.png',
+                  width: 20.0,
+                  height: 20.0,
+                ),
               ),
             ),
             const SizedBox(height: 8.0),
-            const Text('Helena', style: TextStyle(color: Colors.white)),
+            const Text('Hit the Bull', style: TextStyle(color: Colors.white)),
           ],
         ),
       ],

@@ -1,29 +1,28 @@
-import 'package:game_ticket/src/drag/test_drag.dart';
-import 'package:game_ticket/src/game_detail_screen.dart';
-import 'package:game_ticket/src/player/player_screen.dart';
-import 'package:game_ticket/src/ticket/create_ticket_screen.dart';
-import 'package:game_ticket/src/ticket/select_game_screen.dart';
+import 'package:game_ticket/src/game/views/game_detail_screen.dart';
+import 'package:game_ticket/src/game/views/select_game_screen.dart';
+import 'package:game_ticket/src/main/main_screen.dart';
+import 'package:game_ticket/src/player/select_player_screen.dart';
 import 'package:get/get.dart';
 
 final List<GetPage<dynamic>> routes = [
   GetPage(
-    name: CreateTicketScreen.routeName,
-    page: () => const CreateTicketScreen(),
-  ),
-  GetPage(
-    name: PlayerScreen.routeName,
-    page: () => PlayerScreen(),
+    name: MainScreen.routeName,
+    page: () => const MainScreen(),
   ),
   GetPage(
     name: SelectGameScreen.routeName,
     page: () => const SelectGameScreen(),
   ),
   GetPage(
+    name: AddPlayerScreen.routeName,
+    page: () => const AddPlayerScreen(),
+  ),
+  GetPage(
     name: GameDetailScreen.routeName,
     page: () => const GameDetailScreen(),
   ),
-  GetPage(
-    name: TestDraggableWidget.routeName,
-    page: () => const TestDraggableWidget(),
-  ),
+  // GetPage(
+  //   name: GameInfoScreen.routeName,
+  //   page: () => const GameInfoScreen(),
+  // ),
 ];

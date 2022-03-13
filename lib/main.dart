@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:game_ticket/src/main/main_screen.dart';
 import 'package:game_ticket/src/main_binding.dart';
-import 'package:game_ticket/src/ticket/create_ticket_screen.dart';
 import 'package:game_ticket/utils/app_theme.dart';
 import 'package:game_ticket/utils/routes.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         theme: lightThemeData,
         // darkTheme: darkThemeData,
         initialBinding: MainBinding(),
-        initialRoute: CreateTicketScreen.routeName,
+        initialRoute: MainScreen.routeName,
         getPages: routes,
       );
 }
