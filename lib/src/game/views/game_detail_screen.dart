@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:game_ticket/src/game/widgets/counter_widget.dart';
+import 'package:game_ticket/src/game/game_controller.dart';
 import 'package:game_ticket/src/main/main_controller.dart';
 import 'package:game_ticket/src/main/main_screen.dart';
 import 'package:game_ticket/utils/bubble_indicator.dart';
 import 'package:game_ticket/utils/constants.dart';
+import 'package:game_ticket/widgets/float_btn.dart';
 import 'package:get/get.dart';
 
 class GameDetailScreen extends StatefulWidget {
@@ -19,19 +20,7 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Container(
-        decoration: BoxDecoration(
-            border: Border.all(width: 2.0, color: primaryColor),
-            borderRadius: BorderRadius.circular(32.0)),
-        child: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.white,
-          child: const Icon(
-            Icons.border_all_rounded,
-            color: primaryColor,
-          ),
-        ),
-      ),
+      floatingActionButton: const FloatBtnWidget(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Stack(
         clipBehavior: Clip.none,
@@ -45,7 +34,7 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 62.0, right: 16.0, left: 16.0),
+            padding: const EdgeInsets.only(top: 50.0, right: 16.0, left: 16.0),
             child: Column(
               children: [
                 _buildAppBarView(),
@@ -85,13 +74,17 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                       ),
                       Text('Game Rounds', style: kBodyStyle),
                       const SizedBox(height: 14.0),
-                      const CounterWidget(),
+                      //! Add Counter
+                      _buildGameCounterView(),
+                      // const CounterWidget(),
                       const SizedBox(height: 14.0),
-                      Text('How you', style: kBodyStyle),
+                      Text('Hits per Field', style: kBodyStyle),
                       const SizedBox(height: 14.0),
-                      const CounterWidget(),
+                      //! Add Counter
+                      _buildHitPerFieldCounterView(),
+                      // const CounterWidget(),
                       const SizedBox(height: 14.0),
-                      Text('Who is Begining', style: kBodyStyle),
+                      Text('Who is Beginning?', style: kBodyStyle),
                       const SizedBox(height: 14.0),
                       _buildPlayerView(),
                       const SizedBox(height: 14.0),
@@ -237,6 +230,146 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
       ],
     );
   }
+
+  Widget _buildGameCounterView() {
+    return GetBuilder<GameController>(
+      init: GameController(),
+      builder: (gameController) => Row(
+        children: [
+          InkWell(
+            onTap: () => gameController.decreament(),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 3.0),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  bottomLeft: Radius.circular(8),
+                ),
+                color: Colors.white,
+              ),
+              child: const Icon(
+                Icons.remove,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+          Container(
+            width: 50.0,
+            height: 60.0,
+            decoration: BoxDecoration(
+              color: primaryColor,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            // padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
+            child: Center(
+              child: Text(
+                '${gameController.gameRoundCounter}',
+                style: kBodyStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 18.0),
+              ),
+            ),
+          ),
+          // Container(
+          //   decoration: BoxDecoration(
+          //     color: primaryColor,
+          //     borderRadius: BorderRadius.circular(8.0),
+          //   ),
+          //   padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
+          //   child: AnimatedTextKit(
+          //     isRepeatingAnimation: false,
+          //     pause: const Duration(milliseconds: 800),
+          //     animatedTexts: [
+          //       RotateAnimatedText(
+          //         '1',
+          //         rotateOut: false,
+          //         // transitionHeight: 20.0,
+          //         duration: const Duration(milliseconds: 800),
+          //         textStyle: kBodyStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 17.0),
+          //       ),
+          //     ],
+          //     onTap: () {
+          //       print("Tap Event");
+          //     },
+          //   ),
+          // ),
+          InkWell(
+            onTap: () => gameController.increament(),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 3.0),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
+                ),
+                color: Colors.white,
+              ),
+              child: const Icon(
+                Icons.add,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHitPerFieldCounterView() {
+    return GetBuilder<GameController>(
+      init: GameController(),
+      builder: (gameController) => Row(
+        children: [
+          InkWell(
+            onTap: () => gameController.decreamentHit(),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 3.0),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  bottomLeft: Radius.circular(8),
+                ),
+                color: Colors.white,
+              ),
+              child: const Icon(
+                Icons.remove,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+          Container(
+            width: 50.0,
+            height: 60.0,
+            decoration: BoxDecoration(
+              color: primaryColor,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Center(
+              child: Text(
+                '${gameController.hitsCounter}',
+                style: kBodyStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 18.0),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () => gameController.increamentHit(),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 3.0),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
+                ),
+                color: Colors.white,
+              ),
+              child: const Icon(
+                Icons.add,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class TabScreenBuilder extends StatefulWidget {
@@ -336,7 +469,7 @@ class _TabScreenBuilderState extends State<TabScreenBuilder> with SingleTickerPr
       height: 42.0,
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(30.0)),
+        borderRadius: BorderRadius.all(Radius.circular(32.0)),
       ),
       child: CustomPaint(
         painter: BubbleIndicatorPainter(pageController: _pageController),
@@ -350,7 +483,7 @@ class _TabScreenBuilderState extends State<TabScreenBuilder> with SingleTickerPr
                   'Basic Game',
                   style: TextStyle(
                     color: left,
-                    fontSize: 16.0,
+                    fontSize: 14.0,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Poppins',
                   ),
@@ -364,7 +497,7 @@ class _TabScreenBuilderState extends State<TabScreenBuilder> with SingleTickerPr
                   'Custom Game',
                   style: TextStyle(
                     color: right,
-                    fontSize: 16.0,
+                    fontSize: 14.0,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Poppins',
                   ),

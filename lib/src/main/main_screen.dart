@@ -4,6 +4,7 @@ import 'package:game_ticket/src/game/views/select_game_screen.dart';
 import 'package:game_ticket/src/main/main_controller.dart';
 import 'package:game_ticket/src/player/select_player_screen.dart';
 import 'package:game_ticket/utils/constants.dart';
+import 'package:game_ticket/widgets/float_btn.dart';
 import 'package:get/get.dart';
 
 class MainScreen extends StatelessWidget {
@@ -14,19 +15,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Container(
-        decoration: BoxDecoration(
-            border: Border.all(width: 2.0, color: primaryColor),
-            borderRadius: BorderRadius.circular(32.0)),
-        child: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.white,
-          child: const Icon(
-            Icons.border_all_rounded,
-            color: primaryColor,
-          ),
-        ),
-      ),
+      floatingActionButton: const FloatBtnWidget(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Stack(
         clipBehavior: Clip.none,
@@ -40,166 +29,177 @@ class MainScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 62.0, right: 16.0, left: 16.0),
+            padding: const EdgeInsets.only(top: 60.0, right: 16.0, left: 16.0),
             child: Column(
               children: [
                 _buildAppBarView(),
                 const SizedBox(height: 20.0),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.7,
-                  padding: const EdgeInsets.only(top: 30.0, bottom: 26.0, right: 16.0, left: 16.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24.0),
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.white.withOpacity(0.3),
-                        Colors.white.withOpacity(0.1),
-                      ],
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  padding: const EdgeInsets.only(top: 44.0, bottom: 10.0, right: 30.0, left: 30.0),
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/transparent_bg.png'),
                     ),
+                    // borderRadius: BorderRadius.circular(24.0),
+                    // gradient: LinearGradient(
+                    //   begin: Alignment.topLeft,
+                    //   end: Alignment.bottomRight,
+                    //   colors: [
+                    //     Colors.white.withOpacity(0.3),
+                    //     Colors.white.withOpacity(0.1),
+                    //   ],
+                    // ),
                   ),
                   child: GetBuilder<MainController>(
-                      init: MainController(),
-                      builder: (mainController) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GetBuilder<MainController>(
-                              init: MainController(),
-                              builder: (mainController) => Row(
-                                children: [
-                                  Text(mainController.gameName, style: kTitleStyle),
-                                  const SizedBox(width: 10.0),
-                                  InkWell(
-                                    onTap: () {
-                                      mainController.editGameName();
-                                    },
-                                    child: const Icon(Icons.edit, color: primaryColor, size: 18.0),
+                    init: MainController(),
+                    builder: (mainController) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GetBuilder<MainController>(
+                            init: MainController(),
+                            builder: (mainController) => Row(
+                              children: [
+                                Text(mainController.gameName, style: kTitleStyle),
+                                const SizedBox(width: 10.0),
+                                InkWell(
+                                  onTap: () {
+                                    mainController.editGameName();
+                                  },
+                                  child: const Icon(Icons.edit, color: primaryColor, size: 20.0),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 10.0),
+                          Text('Select a Game', style: kBodyStyle),
+                          const SizedBox(height: 10.0),
+                          Row(
+                            children: [
+                              Center(
+                                child: InkWell(
+                                  onTap: () => Get.to(
+                                    () => const SelectGameScreen(),
+                                    transition: Transition.rightToLeft,
+                                    duration: const Duration(milliseconds: 400),
                                   ),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(22.0),
+                                    decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius: BorderRadius.circular(32.0),
+                                    ),
+                                    child: const Icon(
+                                      Icons.arrow_forward_ios_rounded,
+                                      color: Colors.white,
+                                      size: 16.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 50.0),
+                              Container(
+                                height: 52.0,
+                                width: 1.0,
+                                color: Colors.white30,
+                                margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10.0),
+                          Text('Add Players', style: kBodyStyle),
+                          const SizedBox(height: 10.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () => Get.to(
+                                  () => const AddPlayerScreen(),
+                                  transition: Transition.rightToLeft,
+                                  duration: const Duration(milliseconds: 400),
+                                ),
+                                child: Container(
+                                  padding: const EdgeInsets.all(20.0),
+                                  decoration: BoxDecoration(
+                                    color: primaryColor,
+                                    borderRadius: BorderRadius.circular(32.0),
+                                  ),
+                                  child: const Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    color: Colors.white,
+                                    size: 16.0,
+                                  ),
+                                ),
+                              ),
+                              mainController.isPlay
+                                  ? _buildGameDetailsView()
+                                  : const SizedBox.shrink(),
+                            ],
+                          ),
+                          const SizedBox(height: 10.0),
+                          Text('Details', style: kBodyStyle),
+                          const SizedBox(height: 10.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              InkWell(
+                                onTap: () => Get.to(
+                                  () => const GameDetailScreen(),
+                                  transition: Transition.rightToLeft,
+                                  duration: const Duration(milliseconds: 400),
+                                ),
+                                child: Container(
+                                  padding: const EdgeInsets.all(20.0),
+                                  decoration: BoxDecoration(
+                                    color: primaryColor,
+                                    borderRadius: BorderRadius.circular(32.0),
+                                  ),
+                                  child: const Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    color: Colors.white,
+                                    size: 16.0,
+                                  ),
+                                ),
+                              ),
+                              mainController.isPlay
+                                  ? _buildPlayerProfileView()
+                                  : const SizedBox.shrink(),
+                            ],
+                          ),
+                          const SizedBox(height: 66.0),
+                          if (mainController.isPlay)
+                            Center(
+                              child: Image.asset('assets/images/barcode.png'),
+                            ),
+                          const SizedBox(height: 10.0),
+                          if (mainController.isPlay)
+                            ElevatedButton(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(Icons.play_arrow),
+                                  SizedBox(width: 10.0),
+                                  Text('Play'),
                                 ],
                               ),
-                            ),
-                            const SizedBox(height: 10.0),
-                            Text('Select a Game', style: kBodyStyle),
-                            const SizedBox(height: 10.0),
-                            Row(
-                              children: [
-                                Center(
-                                  child: InkWell(
-                                    onTap: () => Get.to(
-                                      () => const SelectGameScreen(),
-                                      transition: Transition.rightToLeft,
-                                      duration: const Duration(milliseconds: 400),
-                                    ),
-                                    child: Container(
-                                      padding: const EdgeInsets.all(14.0),
-                                      decoration: BoxDecoration(
-                                        color: primaryColor,
-                                        borderRadius: BorderRadius.circular(32.0),
-                                      ),
-                                      child: const Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        color: Colors.white,
-                                      ),
-                                    ),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Theme.of(context).primaryColor),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                                const SizedBox(width: 50.0),
-                                Container(
-                                  height: 52.0,
-                                  width: 1.0,
-                                  color: Colors.white30,
-                                  margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10.0),
-                            Text('Add Players', style: kBodyStyle),
-                            const SizedBox(height: 10.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                InkWell(
-                                  onTap: () => Get.to(
-                                    () => const AddPlayerScreen(),
-                                    transition: Transition.rightToLeft,
-                                    duration: const Duration(milliseconds: 400),
-                                  ),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(14.0),
-                                    decoration: BoxDecoration(
-                                      color: primaryColor,
-                                      borderRadius: BorderRadius.circular(32.0),
-                                    ),
-                                    child: const Icon(Icons.arrow_forward_ios_rounded,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                                mainController.isPlay
-                                    ? _buildGameDetailsView()
-                                    : const SizedBox.shrink(),
-                              ],
-                            ),
-                            const SizedBox(height: 10.0),
-                            Text('Details', style: kBodyStyle),
-                            const SizedBox(height: 10.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                InkWell(
-                                  onTap: () => Get.to(
-                                    () => const GameDetailScreen(),
-                                    transition: Transition.rightToLeft,
-                                    duration: const Duration(milliseconds: 400),
-                                  ),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(14.0),
-                                    decoration: BoxDecoration(
-                                      color: primaryColor,
-                                      borderRadius: BorderRadius.circular(32.0),
-                                    ),
-                                    child: const Icon(Icons.arrow_forward_ios_rounded,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                                mainController.isPlay
-                                    ? _buildPlayerProfileView()
-                                    : const SizedBox.shrink(),
-                              ],
-                            ),
-                            const SizedBox(height: 10.0),
-                            if (mainController.isPlay)
-                              Center(
-                                child: Image.asset('assets/images/barcode.png',
-                                    height: 75.0, color: Colors.white),
                               ),
-                            const SizedBox(height: 10.0),
-                            if (mainController.isPlay)
-                              ElevatedButton(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Icon(Icons.play_arrow),
-                                    SizedBox(width: 10.0),
-                                    Text('Play'),
-                                  ],
-                                ),
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Theme.of(context).primaryColor),
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {},
-                              ),
-                          ],
-                        );
-                      }),
-                )
+                              onPressed: () {},
+                            ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           )
@@ -284,7 +284,7 @@ class MainScreen extends StatelessWidget {
         RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            text: 'Game Rounds      ',
+            text: 'Game Rounds       ',
             style: kBodyStyle,
             children: const <TextSpan>[
               TextSpan(text: '02', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0)),
@@ -294,7 +294,7 @@ class MainScreen extends StatelessWidget {
         RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            text: 'Hit per Field           ',
+            text: 'Hit per Field            ',
             style: kBodyStyle,
             children: const <TextSpan>[
               TextSpan(text: '02', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0)),
@@ -315,7 +315,7 @@ class MainScreen extends StatelessWidget {
         RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            text: 'Beginner Name      ',
+            text: 'Beginner Name    ',
             style: kBodyStyle,
             children: const <TextSpan>[
               TextSpan(text: '02', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0)),

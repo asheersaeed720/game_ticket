@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:game_ticket/src/game/views/game_info_screen.dart';
 import 'package:game_ticket/src/main/main_screen.dart';
 import 'package:game_ticket/utils/constants.dart';
+import 'package:game_ticket/widgets/float_btn.dart';
 import 'package:get/get.dart';
 
 class SelectGameScreen extends StatelessWidget {
@@ -28,19 +29,7 @@ class SelectGameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Container(
-        decoration: BoxDecoration(
-            border: Border.all(width: 2.0, color: primaryColor),
-            borderRadius: BorderRadius.circular(32.0)),
-        child: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.white,
-          child: const Icon(
-            Icons.border_all_rounded,
-            color: primaryColor,
-          ),
-        ),
-      ),
+      floatingActionButton: const FloatBtnWidget(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Stack(
         clipBehavior: Clip.none,
@@ -122,14 +111,18 @@ class SelectGameScreen extends StatelessWidget {
 
   Widget _buildGameItemView(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        RichText(
-          text: TextSpan(
-            text: 'Select a ',
-            style: kTitleStyle,
-            children: <TextSpan>[
-              TextSpan(text: 'Game,', style: kTitleStyle.copyWith(color: primaryColor)),
-            ],
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: RichText(
+            text: TextSpan(
+              text: 'Select a ',
+              style: kTitleStyle,
+              children: <TextSpan>[
+                TextSpan(text: 'Game,', style: kTitleStyle.copyWith(color: primaryColor)),
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 28.0),
@@ -157,7 +150,7 @@ class SelectGameScreen extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      right: -6,
+                      right: -4,
                       child: InkWell(
                         onTap: () => navigateToGameInfo(
                             'Cricket', 'assets/icons/cricket.png', 'Cricket The classic'),
@@ -167,7 +160,7 @@ class SelectGameScreen extends StatelessWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(32.0),
                           ),
-                          child: const Icon(Icons.info, color: Colors.black87),
+                          child: Image.asset('assets/icons/info.png', width: 20.0, height: 20.0),
                         ),
                       ),
                     ),
@@ -190,15 +183,15 @@ class SelectGameScreen extends StatelessWidget {
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(100.0),
                         ),
-                        child: const Icon(
-                          Icons.timelapse_rounded,
-                          size: 52.0,
-                          color: Colors.white,
+                        child: Image.asset(
+                          'assets/icons/clock.png',
+                          width: 56.0,
+                          height: 56.0,
                         ),
                       ),
                     ),
                     Positioned(
-                      right: -6,
+                      right: -4,
                       child: InkWell(
                         onTap: () => navigateToGameInfo(
                             'Around the clock', Icons.timelapse_rounded, 'Around the clock desc'),
@@ -208,19 +201,23 @@ class SelectGameScreen extends StatelessWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(32.0),
                           ),
-                          child: const Icon(Icons.info, color: Colors.black87),
+                          child: Image.asset('assets/icons/info.png', width: 20.0, height: 20.0),
                         ),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16.0),
-                Text('Around the clock', style: kBodyStyle),
+                Text(
+                  'Around the\n clock',
+                  style: kBodyStyle,
+                  textAlign: TextAlign.center,
+                ),
               ],
             ),
           ],
         ),
-        const SizedBox(height: 20.0),
+        const SizedBox(height: 26.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -245,7 +242,7 @@ class SelectGameScreen extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      right: -6,
+                      right: -4,
                       child: InkWell(
                         onTap: () =>
                             navigateToGameInfo('121', 'assets/icons/121.png', '121 the desc'),
@@ -255,7 +252,7 @@ class SelectGameScreen extends StatelessWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(32.0),
                           ),
-                          child: const Icon(Icons.info, color: Colors.black87),
+                          child: Image.asset('assets/icons/info.png', width: 20.0, height: 20.0),
                         ),
                       ),
                     ),
@@ -286,7 +283,7 @@ class SelectGameScreen extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      right: -6,
+                      right: -4,
                       child: InkWell(
                         onTap: () =>
                             navigateToGameInfo('170', 'assets/icons/170.png', '170 is desc'),
@@ -296,7 +293,7 @@ class SelectGameScreen extends StatelessWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(32.0),
                           ),
-                          child: const Icon(Icons.info, color: Colors.black87),
+                          child: Image.asset('assets/icons/info.png', width: 20.0, height: 20.0),
                         ),
                       ),
                     ),

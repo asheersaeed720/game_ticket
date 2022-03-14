@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:game_ticket/src/main/main_screen.dart';
 import 'package:game_ticket/utils/constants.dart';
+import 'package:game_ticket/widgets/float_btn.dart';
 import 'package:get/get.dart';
 
 class AddPlayerScreen extends StatefulWidget {
@@ -149,19 +150,7 @@ class _AddPlayerScreenState extends State<AddPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Container(
-        decoration: BoxDecoration(
-            border: Border.all(width: 2.0, color: primaryColor),
-            borderRadius: BorderRadius.circular(32.0)),
-        child: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.white,
-          child: const Icon(
-            Icons.border_all_rounded,
-            color: primaryColor,
-          ),
-        ),
-      ),
+      floatingActionButton: const FloatBtnWidget(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Stack(
         clipBehavior: Clip.none,

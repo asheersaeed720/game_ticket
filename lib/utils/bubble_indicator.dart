@@ -5,9 +5,9 @@ import 'package:game_ticket/utils/constants.dart';
 
 class BubbleIndicatorPainter extends CustomPainter {
   BubbleIndicatorPainter({
-    this.dxTarget = 114.0,
-    this.dxEntry = 24.0,
-    this.radius = 16.0,
+    this.dxTarget = 120.0,
+    this.dxEntry = 20.0,
+    this.radius = 21.0, //16
     this.dy = 21.0,
     this.pageController,
   }) : super(repaint: pageController) {
@@ -41,7 +41,7 @@ class BubbleIndicatorPainter extends CustomPainter {
     path.addArc(Rect.fromCircle(center: target, radius: radius), 1.5 * pi, 1 * pi);
 
     canvas.translate(size.width * pageOffset, 0.0);
-    canvas.drawShadow(path, Colors.white, 3.0, true);
+    // canvas.drawShadow(path, Colors.white, 3.0, true);
     canvas.drawPath(path, painter!);
   }
 
