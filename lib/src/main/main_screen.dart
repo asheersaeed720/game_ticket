@@ -28,23 +28,6 @@ class MainScreen extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: 0.0,
-            child: Image.asset(
-              'assets/images/green_transparent.png',
-              color: Colors.white.withOpacity(0.3),
-              colorBlendMode: BlendMode.modulate,
-            ),
-          ),
-          Positioned(
-            bottom: 0.0,
-            right: 0.0,
-            child: Image.asset(
-              'assets/images/green_transparent.png',
-              color: Colors.white.withOpacity(0.2),
-              colorBlendMode: BlendMode.modulate,
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.only(top: 60.0, right: 16.0, left: 16.0),
             child: Column(
